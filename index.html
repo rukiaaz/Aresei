@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Aresei — IT Solutions</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init('fMmheQG4igtkhAqEL');</script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -92,7 +94,6 @@ nav{
 .hamburger.open span:nth-child(2){opacity:0;}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
 
-/* MOBILE MENU */
 .mobile-menu{display:none;position:fixed;top:65px;left:0;right:0;z-index:99;background:var(--bg2);border-bottom:1px solid var(--border);padding:24px 32px;flex-direction:column;gap:20px;transform:translateY(-10px);opacity:0;transition:transform .3s,opacity .3s;pointer-events:none;}
 .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:all;}
 .mobile-menu a{color:var(--fg2);text-decoration:none;font-size:1rem;font-weight:500;transition:color .2s;}
@@ -254,7 +255,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
 .footer-bottom-links a:hover{color:var(--fg);}
 
 /* BACK TO TOP */
-#backToTop{position:fixed;bottom:32px;right:32px;z-index:200;width:44px;height:44px;background:var(--fg);color:var(--bg);border:none;border-radius:50%;display:grid;place-items:center;cursor:none;opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s;pointer-events:none;}
+#backToTop{position:fixed;bottom:28px;right:32px;z-index:200;width:44px;height:44px;background:var(--fg);color:var(--bg);border:none;border-radius:50%;display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s;pointer-events:none;}
 #backToTop.visible{opacity:1;transform:translateY(0);pointer-events:all;}
 #backToTop:hover{opacity:.85;}
 
@@ -275,29 +276,55 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
 .btn-cd{background:none;color:var(--fg2);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:.79rem;padding:9px 18px;border-radius:7px;cursor:none;transition:border-color .2s,color .2s;}
 .btn-cd:hover{border-color:var(--fg);color:var(--fg);}
 
+/* ── ARESE PAGE SECTION ── */
+.arese-section{position:relative;z-index:1;padding:100px 56px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.arese-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:72px;align-items:start;}
+.arese-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+.arese-chip{background:var(--glass);border:1px solid var(--border);color:var(--fg2);font-family:'DM Sans',sans-serif;font-size:.78rem;padding:8px 16px;border-radius:100px;cursor:pointer;transition:background .2s,border-color .2s,color .2s;}
+.arese-chip:hover{background:var(--card);border-color:var(--fg2);color:var(--fg);}
+
+/* Arese chat card */
+.arese-chat-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;height:520px;box-shadow:0 8px 40px var(--shadow);}
+.arese-chat-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--bg3);}
+.arese-chat-avatar{width:38px;height:38px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.82rem;flex-shrink:0;}
+.arese-chat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;}
+.arese-chat-status{font-size:.7rem;color:var(--fg3);display:flex;align-items:center;gap:5px;margin-top:2px;}
+.arese-messages{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.arese-messages::-webkit-scrollbar{width:4px;}
+.arese-messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.arese-msg{max-width:86%;display:flex;flex-direction:column;gap:3px;}
+.arese-msg.bot{align-self:flex-start;}
+.arese-msg.user{align-self:flex-end;}
+.arese-bubble{padding:11px 15px;border-radius:14px;font-size:.84rem;line-height:1.6;}
+.arese-msg.bot .arese-bubble{background:var(--glass);border:1px solid var(--border);color:var(--fg);border-radius:4px 14px 14px 14px;}
+.arese-msg.user .arese-bubble{background:var(--fg);color:var(--bg);border-radius:14px 4px 14px 14px;}
+.arese-time{font-size:.62rem;color:var(--fg3);padding:0 4px;}
+.arese-msg.user .arese-time{text-align:right;}
+.arese-typing{display:flex;gap:4px;padding:10px 14px;align-items:center;}
+.arese-typing span{width:6px;height:6px;background:var(--fg3);border-radius:50%;animation:typingBounce .9s ease-in-out infinite;}
+.arese-typing span:nth-child(2){animation-delay:.15s;}
+.arese-typing span:nth-child(3){animation-delay:.3s;}
+.arese-quick-replies{padding:8px 16px 4px;display:flex;flex-wrap:wrap;gap:6px;}
+.arese-qr-btn{background:var(--glass);border:1px solid var(--border);color:var(--fg2);font-family:'DM Sans',sans-serif;font-size:.72rem;padding:6px 12px;border-radius:100px;cursor:pointer;transition:background .2s,border-color .2s,color .2s;white-space:nowrap;}
+.arese-qr-btn:hover{background:var(--card);border-color:var(--fg2);color:var(--fg);}
+.arese-input-row{padding:12px 14px 14px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;}
+.arese-input{flex:1;background:var(--glass);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--fg);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;transition:border-color .3s;}
+.arese-input::placeholder{color:var(--fg3);}
+.arese-input:focus{border-color:var(--fg2);}
+.arese-send-btn{width:38px;height:38px;border-radius:9px;background:var(--fg);color:var(--bg);border:none;cursor:pointer;display:grid;place-items:center;transition:opacity .2s;flex-shrink:0;}
+.arese-send-btn:hover{opacity:.8;}
 @media(max-width:900px){
-  nav{padding:16px 24px;}
-  .nav-links{display:none;}
-  .hamburger{display:flex;}
-  .mobile-menu{display:flex;}
-  .hero{padding:100px 24px 80px;}
-  .hero-ctas{flex-direction:column;align-items:center;}
-  .stats-section{flex-wrap:wrap;padding:48px 24px;}
-  .stat{min-width:45%;border-right:1px solid var(--border);}
-  .about-section{grid-template-columns:1fr;gap:40px;padding:60px 24px;}
-  .services-grid{grid-template-columns:1fr;}
-  .services-section,.process-section,.pricing-section,.team-section,.faq-section{padding:60px 24px;}
-  .pricing-grid{grid-template-columns:1fr;}
-  .process-steps{grid-template-columns:1fr 1fr;gap:32px;}
-  .process-steps::before{display:none;}
-  .contact-inner{grid-template-columns:1fr;gap:40px;}
-  .contact-section{padding:60px 24px;}
-  .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
-  footer{padding:48px 24px 24px;}
-  .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
-  .form-row{grid-template-columns:1fr;}
-  .founder-card{padding:40px 32px;}
+  .arese-section{padding:60px 24px;}
+  .arese-inner{grid-template-columns:1fr;gap:36px;}
+  .arese-chat-card{height:440px;}
 }
+
+
+/* ── FORM STATUS ── */
+.form-status{display:none;padding:12px 16px;border-radius:8px;font-size:.84rem;margin-top:8px;}
+.form-status.success{background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);color:#4ade80;display:block;}
+.form-status.error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;display:block;}
+
 </style>
 </head>
 <body>
@@ -323,6 +350,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 15l7-7 7 7"/></svg>
 </button>
 
+
+
+
+
 <!-- COOKIE -->
 <div id="cookieBanner">
   <p>We use cookies to enhance your experience. By continuing to browse, you agree to our <a href="#" style="color:var(--fg);">Cookie Policy</a>.</p>
@@ -342,6 +373,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about" data-section="about">About</a></li>
+    <li><a href="#arese" data-section="arese">Arese</a></li>
     <li><a href="#services" data-section="services">Services</a></li>
     <li><a href="#pricing" data-section="pricing">Pricing</a></li>
     <li><a href="#team" data-section="team">Team</a></li>
@@ -358,6 +390,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#arese" onclick="closeMobile()">Arese</a>
   <a href="#services" onclick="closeMobile()">Services</a>
   <a href="#pricing" onclick="closeMobile()">Pricing</a>
   <a href="#team" onclick="closeMobile()">Team</a>
@@ -444,6 +477,45 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
       <div class="about-card-icon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h4>Quality First</h4>
       <p>Even as students, we hold our work to professional standards — every time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARESE AI PAGE -->
+<section class="arese-section" id="arese">
+  <div class="arese-inner">
+    <div class="arese-left reveal-l">
+      <div class="section-label">AI Assistant</div>
+      <h2 class="section-title">Meet Arese</h2>
+      <p style="font-size:.92rem;line-height:1.85;color:var(--fg2);margin-bottom:16px;">Arese is Aresei's built-in AI assistant. Ask anything about our services, pricing, the founder, how to get started — Arese knows it all.</p>
+      <p style="font-size:.92rem;line-height:1.85;color:var(--fg2);margin-bottom:32px;">Powered by Claude AI, Arese gives you instant, accurate answers about everything Aresei.</p>
+      <div class="arese-chips">
+        <button class="arese-chip" onclick="areSendQuick('What services does Aresei offer?')">🛠 Services</button>
+        <button class="arese-chip" onclick="areSendQuick('What are your pricing plans?')">💰 Pricing</button>
+        <button class="arese-chip" onclick="areSendQuick('Tell me about the founder')">👤 Founder</button>
+        <button class="arese-chip" onclick="areSendQuick('Where can I see the portfolio?')">📁 Portfolio</button>
+        <button class="arese-chip" onclick="areSendQuick('How do I start a project with Aresei?')">🚀 Get Started</button>
+        <button class="arese-chip" onclick="areSendQuick('What technologies do you use?')">💻 Tech Stack</button>
+      </div>
+    </div>
+    <div class="arese-right reveal-r">
+      <div class="arese-chat-card">
+        <div class="arese-chat-header">
+          <div class="arese-chat-avatar">AR</div>
+          <div>
+            <div class="arese-chat-name">Arese</div>
+            <div class="arese-chat-status"><span class="chat-status-dot"></span>Online · Powered by AI</div>
+          </div>
+        </div>
+        <div class="arese-messages" id="areseMessages"></div>
+        <div class="arese-quick-replies" id="areseQuickReplies"></div>
+        <div class="arese-input-row">
+          <input class="arese-input" id="areseInput" type="text" placeholder="Ask Arese anything..." onkeydown="if(event.key==='Enter')areSend()"/>
+          <button class="arese-send-btn" onclick="areSend()">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -573,19 +645,19 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
       <div class="founder-role">Founder</div>
       <div class="founder-socials">
         <a href="https://francis.aresei.store" class="social-link" data-tip="View Portfolio">
-  <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-</a>
-<a href="#" class="social-link" data-tip="GitHub">
-  <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-</a>
-<a href="#" class="social-link" data-tip="Facebook">
-  <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-</a>
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <a href="#" class="social-link" data-tip="GitHub">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </a>
+        <a href="#" class="social-link" data-tip="Facebook">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
       </div>
     </div>
   </div>
+  <p class="team-note">More team members will be joining soon as Aresei grows. 🚀</p>
 </section>
-
 
 <!-- FAQ -->
 <section class="faq-section reveal">
@@ -625,7 +697,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
       <div class="contact-info">
         <div class="contact-info-item">
           <div class="contact-info-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          hello@aresei.io
+          <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f89e8a99969b918b8c9995998197cdcdb89f95999194d69b9795">[email&#160;protected]</a>
         </div>
         <div class="contact-info-item">
           <div class="contact-info-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -633,14 +705,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
         </div>
       </div>
     </div>
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+    <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
       <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="Juan"/></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Dela Cruz"/></div>
+        <div class="form-group"><label>First Name</label><input type="text" id="firstName" placeholder="Juan" required/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" id="lastName" placeholder="Dela Cruz" required/></div>
       </div>
-      <div class="form-group"><label>Email</label><input type="email" placeholder="juan@email.com"/></div>
+      <div class="form-group"><label>Email</label><input type="email" id="senderEmail" placeholder="juan@email.com" required/></div>
       <div class="form-group"><label>Service</label>
-        <select>
+        <select id="serviceType" required>
           <option value="" disabled selected>Select a service...</option>
           <option>Web Development</option>
           <option>Mobile Development</option>
@@ -651,10 +723,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
           <option>Custom Project</option>
         </select>
       </div>
-      <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
-      <button type="submit" class="btn-primary" style="align-self:flex-start;">Send Message
+      <div class="form-group"><label>Message</label><textarea id="messageText" placeholder="Tell us about your project..." required></textarea></div>
+      <button type="submit" class="btn-primary" id="submitBtn" style="align-self:flex-start;">Send Message
         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
+      <div class="form-status" id="formStatus"></div>
     </form>
   </div>
 </section>
@@ -676,7 +749,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
     </div>
     <div class="footer-col"><h5>Company</h5><ul><li><a href="#about">About Us</a></li><li><a href="#team">Team</a></li><li><a href="#contact">Contact</a></li></ul></div>
     <div class="footer-col"><h5>Services</h5><ul><li><a href="#services">Web Dev</a></li><li><a href="#services">Mobile Dev</a></li><li><a href="#services">Consulting</a></li></ul></div>
-    <div class="footer-col"><h5>Info</h5><ul><li><a href="#pricing">Pricing</a></li><li><a href="#faq">FAQ</a></li><li><a href="mailto:hello@aresei.io">Email Us</a></li></ul></div>
+    <div class="footer-col"><h5>Info</h5><ul><li><a href="#pricing">Pricing</a></li><li><a href="#">FAQ</a></li><li><a href="/cdn-cgi/l/email-protection#3b5d495a555852484f5a565a42540e0e7b5c565a525715585456">Email Us</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 Aresei. All rights reserved.</span>
@@ -684,7 +757,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── LOADER ──
 window.addEventListener('load',()=>{
   setTimeout(()=>{document.getElementById('loader').classList.add('hide');},2200);
@@ -748,9 +821,9 @@ function closeMobile(){hb.classList.remove('open');mm.classList.remove('open');}
 const secs=document.querySelectorAll('section[id]');
 const nls=document.querySelectorAll('.nav-links a[data-section]');
 window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});
-  nls.forEach(a=>a.classList.toggle('active',a.dataset.section===cur));
+  let cur2='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur2=s.id;});
+  nls.forEach(a=>a.classList.toggle('active',a.dataset.section===cur2));
   document.getElementById('backToTop').classList.toggle('visible',window.scrollY>400);
 },{passive:true});
 
@@ -769,10 +842,37 @@ function toggleFaq(btn){const item=btn.parentElement;const was=item.classList.co
 // ── CONTACT FORM ──
 function handleSubmit(e){
   e.preventDefault();
-  const btn=e.target.querySelector('button[type="submit"]');
-  const orig=btn.innerHTML;
-  btn.innerHTML='Message Sent ✓';btn.style.opacity='.7';
-  setTimeout(()=>{btn.innerHTML=orig;btn.style.opacity='';e.target.reset();},3000);
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('formStatus');
+
+  const params = {
+    from_name: document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value,
+    from_email: document.getElementById('senderEmail').value,
+    service: document.getElementById('serviceType').value,
+    message: document.getElementById('messageText').value
+  };
+
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '.7';
+  status.style.display = 'none';
+
+  emailjs.send('service_wuegi6w', 'template_q3i5c8p', params)
+    .then(function() {
+      btn.textContent = 'Message Sent ✓';
+      status.textContent = 'Your message was sent! Francis will get back to you within 24 hours.';
+      status.className = 'form-status success';
+      document.getElementById('contactForm').reset();
+      setTimeout(function(){
+        btn.textContent = 'Send Message →';
+        btn.style.opacity = '';
+        status.style.display = 'none';
+      }, 4000);
+    }, function(err) {
+      btn.textContent = 'Send Message →';
+      btn.style.opacity = '';
+      status.textContent = 'Failed to send. Please email francistamayo55@gmail.com directly.';
+      status.className = 'form-status error';
+    });
 }
 
 // ── COOKIE ──
@@ -784,6 +884,182 @@ window.addEventListener('scroll',()=>{
   const h=document.querySelector('.hero h1');
   if(h)h.style.transform=`translateY(${window.scrollY*.18}px)`;
 },{passive:true});
+
+// ── ARESE AI CHATBOT ──
+const ARESEI_KNOWLEDGE = `
+You are Arese, the friendly AI assistant for Aresei — a student-founded IT company.
+
+COMPANY INFO:
+- Name: Aresei | Website: aresei.store | Email: francistamayo55@gmail.com
+- Location: University of San Carlos, Cebu City, Philippines
+- Founded by: Francis Niel Tamayo, 2nd year IT student at USC Cebu
+
+FOUNDER:
+- Name: Francis Niel Tamayo | Role: Founder
+- Portfolio: https://francis.aresei.store
+- 2nd year Information Technology student at the University of San Carlos, Cebu
+
+SERVICES:
+1. Web Development — Responsive websites & web apps, modern frameworks
+2. Mobile Development — Android & cross-platform apps built with Java
+3. AI & Automation — AI-powered features and automated workflows
+4. Cybersecurity Basics — Security reviews for small businesses
+5. Data & Analytics — Dashboards and data visualizations
+6. IT Consulting — Honest tech advice from active IT students
+
+PRICING:
+- Basic: PHP 2,500/project — Simple website up to 5 pages, responsive design, basic contact form, 2 weeks delivery
+- Standard: PHP 6,000/project (Most Popular) — Everything in Basic + web/mobile app, database, login system, 1 month support
+- Custom: Price varies — Custom scope, ongoing maintenance, flexible timeline. Contact for quote.
+- All prices are negotiable. Just reach out!
+
+TECH STACK: Java, HTML/CSS/JavaScript, Python, modern web & mobile frameworks
+
+PROCESS: Discovery → Strategy → Execution → Support
+
+Be friendly, concise (2-4 sentences), and always encourage contacting via the form or email for project discussions.
+`;
+
+const areseQuickGroups = {
+  default: [
+    {label:'💰 Pricing', msg:'What are your pricing plans?'},
+    {label:'🛠 Services', msg:'What services do you offer?'},
+    {label:'👤 Founder', msg:'Tell me about the founder'},
+    {label:'📁 Portfolio', msg:'Where can I see your portfolio?'},
+    {label:'🚀 Get Started', msg:'How do I start a project?'},
+  ],
+  pricing: [
+    {label:'📦 Basic Plan', msg:'Tell me more about the Basic plan'},
+    {label:'⭐ Standard Plan', msg:'Tell me more about the Standard plan'},
+    {label:'🎯 Custom Plan', msg:'Tell me about custom pricing'},
+    {label:'🤝 Negotiate', msg:'Can I negotiate the price?'},
+  ],
+  services: [
+    {label:'🌐 Web Dev', msg:'Tell me about web development'},
+    {label:'📱 Mobile App', msg:'Tell me about mobile development'},
+    {label:'🤖 AI & Automation', msg:'Tell me about AI and automation'},
+    {label:'🔒 Cybersecurity', msg:'Tell me about cybersecurity'},
+  ]
+};
+
+let areseHistory = [];
+let areseReady = false;
+
+function areseInit() {
+  if(areseReady) return;
+  areseReady = true;
+  setTimeout(() => {
+    areseAddBot("Hey! 👋 I'm Arese, Aresei's AI assistant. Ask me anything about our services, pricing, the founder, or how to get started!");
+    areseShowQR('default');
+  }, 300);
+}
+
+// Auto-init when section is visible
+const areseObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) areseInit(); });
+}, {threshold: 0.2});
+const areseSection = document.getElementById('arese');
+if(areseSection) areseObserver.observe(areseSection);
+
+function areseAddBot(text) {
+  const msgs = document.getElementById('areseMessages');
+  if(!msgs) return;
+  const now = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const el = document.createElement('div');
+  el.className = 'arese-msg bot';
+  el.innerHTML = `<div class="arese-bubble">${text}</div><div class="arese-time">${now}</div>`;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function areseAddUser(text) {
+  const msgs = document.getElementById('areseMessages');
+  if(!msgs) return;
+  const now = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const el = document.createElement('div');
+  el.className = 'arese-msg user';
+  el.innerHTML = `<div class="arese-bubble">${text}</div><div class="arese-time">${now}</div>`;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function areseShowTyping() {
+  const msgs = document.getElementById('areseMessages');
+  if(!msgs) return;
+  const el = document.createElement('div');
+  el.className = 'arese-msg bot'; el.id = 'areseTyping';
+  el.innerHTML = `<div class="arese-bubble"><div class="arese-typing"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function areseRemoveTyping() {
+  const t = document.getElementById('areseTyping');
+  if(t) t.remove();
+}
+
+function areseShowQR(group) {
+  const qr = document.getElementById('areseQuickReplies');
+  if(!qr) return;
+  qr.innerHTML = '';
+  (areseQuickGroups[group] || areseQuickGroups.default).forEach(item => {
+    const btn = document.createElement('button');
+    btn.className = 'arese-qr-btn';
+    btn.textContent = item.label;
+    btn.onclick = () => areSendQuick(item.msg);
+    qr.appendChild(btn);
+  });
+}
+
+function areSendQuick(text) {
+  areseInit();
+  document.getElementById('areseInput').value = '';
+  areSendMsg(text);
+}
+
+function areSend() {
+  areseInit();
+  const input = document.getElementById('areseInput');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  areSendMsg(text);
+}
+
+async function areSendMsg(text) {
+  areseAddUser(text);
+  areseHistory.push({role:'user', content: text});
+  document.getElementById('areseQuickReplies').innerHTML = '';
+  areseShowTyping();
+
+  const lower = text.toLowerCase();
+  let nextGroup = 'default';
+  if(lower.includes('pric') || lower.includes('cost') || lower.includes('plan') || lower.includes('php')) nextGroup = 'pricing';
+  if(lower.includes('service') || lower.includes('offer') || lower.includes('what do')) nextGroup = 'services';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: ARESEI_KNOWLEDGE,
+        messages: areseHistory
+      })
+    });
+    const data = await response.json();
+    const reply = data.content?.[0]?.text || "Sorry, I had trouble responding. Please email francistamayo55@gmail.com directly!";
+    areseRemoveTyping();
+    areseAddBot(reply);
+    areseHistory.push({role:'assistant', content: reply});
+    areseShowQR(nextGroup);
+  } catch(err) {
+    areseRemoveTyping();
+    areseAddBot("I'm having a connection issue right now. Please reach out at francistamayo55@gmail.com — Francis will reply within 24 hours! 🙌");
+    areseShowQR('default');
+  }
+}
 </script>
 </body>
 </html>
